@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Application.Usecases.Account.Commands
+{
+    public interface IRegisterCommand
+    {
+        Task<Guid> Excute(RegisterModel model);
+    }
+}

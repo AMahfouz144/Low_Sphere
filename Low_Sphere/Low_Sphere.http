@@ -1,0 +1,6 @@
+@Low_Sphere_HostAddress = http://localhost:5118
+
+GET {{Low_Sphere_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
