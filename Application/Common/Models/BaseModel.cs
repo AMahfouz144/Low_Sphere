@@ -3,14 +3,14 @@ using System.Text.Json.Serialization;
 using System.Runtime.Serialization;
 using Common.Models;
 
-namespace Common.Moldels
+namespace Common.Model
 {
     public abstract class BaseModel
     {
         [JsonIgnore]
         protected ModelState modelState;
 
-        protected virtual void Validate()
+        public virtual void Validate()
         {
             modelState = new ModelState();
             ValidationContext context = new ValidationContext(this);
@@ -28,5 +28,6 @@ namespace Common.Moldels
                 return modelState;
             }
         }
+
     }
 }

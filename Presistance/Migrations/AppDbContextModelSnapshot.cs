@@ -50,13 +50,16 @@ namespace Presistance.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("Level")
-                        .HasMaxLength(10)
                         .HasColumnType("int");
 
                     b.Property<string>("Mobile")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("Role")
+                        .HasMaxLength(10)
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -1,5 +1,4 @@
 ﻿using Domain.Users;
-using System.Threading.Tasks;
 
 namespace Application.Reposirories.Presistence.Repositories
 {

@@ -1,11 +1,13 @@
 ﻿
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Domain.Enums;
+using Domain.Common;
 
 namespace Domain.Users
 {
     [Table(nameof(User))]
-    public class User
+    public class User:IEntity
     {
         [Key]
         public Guid Id { get; set; }
@@ -24,6 +26,7 @@ namespace Domain.Users
         public string Mobile { get; set; } = string.Empty;
         public int Age { get; set; }
         [MaxLength(10)]
+        public UserRole Role { get; set; }
         public int Level { get; set; }
         public DateTime CreatedAt { get; set; }
     }

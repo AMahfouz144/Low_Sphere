@@ -27,8 +27,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presistance", "Presistance\
 		{9893BEB8-9352-48AE-A513-BB4BF75EAD6A} = {9893BEB8-9352-48AE-A513-BB4BF75EAD6A}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{50E03620-682D-4BF5-A472-B4456B65B54C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

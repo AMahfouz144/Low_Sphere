@@ -9,8 +9,6 @@
   <ItemGroup>
     <Folder Include="DI\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Repos\Repostories\" />
-    <Folder Include="Repos\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

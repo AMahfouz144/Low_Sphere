@@ -7,17 +7,20 @@ namespace Presistance.Core
     public class AppDbContext : DbContext
     {
         private string connectionString;
-        public AppDbContext()
+        public IDatabaseServiceOptions options;
+        public AppDbContext(IDatabaseServiceOptions options)
         {
-            this.connectionString = "Data Source=ABDOMAHFOUZ;Database=LawSphere;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;";
+            this.options = options;
+            this.connectionString = options.ConnectionString;
         }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer(connectionString);
         }
-        DbSet<User>Users { get; set; }
+      public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

@@ -1,6 +1,6 @@
 ﻿
 
-using Common.Moldels;
+using Common.Model;
 
 namespace Application.Usecases.Account.Commands
 {

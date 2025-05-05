@@ -1,5 +1,6 @@
 ﻿using Application;
 using Common.Swagger;
+using Infrastructure.Core;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -54,7 +55,7 @@ namespace API
             });
             builder.Services.AddHttpContextAccessor();
             var publishDate = $"{DateTime.UtcNow.ToString()} UTC Time.";
-            builder.Services.UseCustomSwagger("Grad Project - Club Training APIs", builder.Environment.EnvironmentName, publishDate, false);
+            builder.Services.UseCustomSwagger("Low_Sphere APIs", builder.Environment.EnvironmentName, publishDate, false);
             builder.RegisterLayers();
             builder.Services.AddMemoryCache();
         }
@@ -70,7 +71,7 @@ namespace API
             builder.Services.RegisterApplication(applicationConfig);
 
             //========================Register Persistence and Infra =================
-            //builder.Services.RegisterInfrastructre(builder.Configuration.GetSection("InfraStructure").Get<InfraStructureConfiguration>());
+            builder.Services.RegisterInfrastructre(builder.Configuration.GetSection("InfraStructure").Get<InfraStructureConfiguration>());
             builder.Services.RegisterPersistence(builder.Configuration["Database"].ToString());
         }
     }
