@@ -1,6 +1,8 @@
 ﻿using Application.Usecases.Users.Commands;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Presistance.Core;
 
 namespace API.Controllers
 {
@@ -28,6 +30,22 @@ namespace API.Controllers
             var res = await signUp.Excute(model);
             return res;
         }
+        [HttpGet("LoggedInUsers")]
+        public async Task<IActionResult> GetLoggedInUsers([FromServices] AppDbContext context)
+        {
+            var users = await context.LoginRecords
+                .Include(lr => lr.User)
+                .OrderByDescending(lr => lr.LoginTime)
+                .Select(lr => new {
+                    lr.User.Id,
+                    lr.User.FullName,
+                    lr.LoginTime
+                })
+                .ToListAsync();
+
+            return Ok(users);
+        }
+
 
     }
 }

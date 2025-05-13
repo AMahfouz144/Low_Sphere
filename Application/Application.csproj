@@ -10,6 +10,8 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Usecases\Account\Queries\Login\" />
     <Folder Include="Usecases\Account\Queries\" />
+    <Folder Include="Usecases\Users\Commands\NewFolder1\" />
+    <Folder Include="Usecases\Users\Commands\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

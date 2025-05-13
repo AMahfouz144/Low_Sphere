@@ -1,4 +1,5 @@
-﻿using Domain.Users;
+﻿using Application.Usecases.Users.Commands.Login;
+using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Presistence.Core;
 
@@ -21,6 +22,8 @@ namespace Presistance.Core
             optionsBuilder.UseSqlServer(connectionString);
         }
       public DbSet<User> Users { get; set; }
+      public DbSet<LoginRecord> LoginRecords { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
