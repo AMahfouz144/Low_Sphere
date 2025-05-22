@@ -2,7 +2,10 @@
 using API;
 using Application;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Presistance.Core;
+using Presistence.Core;
 using System.Text;
 
 namespace Low_Sphere
@@ -11,42 +14,36 @@ namespace Low_Sphere
     {
         public static void Main(string[] args)
         {
-            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
 
+            // CORS
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  policy =>
-                                  {
-                                      policy.WithOrigins("http://localhost:4200",
-                                                         "https://localhost:4200")
-                                            .AllowAnyHeader()
-                                            .AllowAnyMethod();
-                                  });
+                options.AddPolicy("_myAllowSpecificOrigins", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
             });
 
-            builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
-                                 //.AddJsonFile("logsettings.json", optional: false, reloadOnChange: true)
-                                 //.AddJsonFile($"logsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
-
-
             var jwtConfig = builder.Configuration.GetSection("Jwt").Get<JwtConfiguration>();
-
             builder.Services.AddSingleton(jwtConfig);
 
             var jwtKey = Encoding.ASCII.GetBytes(jwtConfig.Secret);
+            builder.Services.AddScoped<IDatabaseServiceOptions>(sp =>
+    new DatabaseServiceOptions
+    {
+        ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    });
+
+            builder.Services.AddScoped<AppDbContext>();
 
             builder.Services.AddAuthentication(options =>
             {
@@ -71,12 +68,9 @@ namespace Low_Sphere
                 };
             });
 
-            builder.Startup();
-
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsProduction())
+            if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
@@ -84,12 +78,16 @@ namespace Low_Sphere
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseCors("_myAllowSpecificOrigins");
 
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.MapControllers();
 
             app.Run();
         }
     }
+
 }

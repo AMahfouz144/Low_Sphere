@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Presistance;
+using Presistence.Core;
 using System.Globalization;
 
 namespace API
@@ -18,6 +19,7 @@ namespace API
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+            builder.Services.AddScoped<IDatabaseServiceOptions, DatabaseServiceOptions>();
 
             //Localization
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
