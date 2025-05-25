@@ -40,7 +40,7 @@ namespace Low_Sphere
             builder.Services.AddScoped<IDatabaseServiceOptions>(sp =>
     new DatabaseServiceOptions
     {
-        ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+        ConnectionString = builder.Configuration.GetConnectionString("Database")
     });
 
             builder.Services.AddScoped<AppDbContext>();
@@ -69,8 +69,8 @@ namespace Low_Sphere
             });
 
             var app = builder.Build();
-
-            if (app.Environment.IsDevelopment())
+            if(app.Environment.IsProduction())
+            //if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
